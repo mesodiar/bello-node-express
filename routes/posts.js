@@ -22,9 +22,17 @@ router.get('/:id', async (req, res) => {
   res.json(posts)
 })
 
+const requireAuth = (req, res, next) =>{
+  if (!req.user){
+    return res.sendStatus(401)
+  }
+  next()
+}
+
+
 //Create Post
-router.post('/posts', async (req, res) => {
-  const post = await Post.create(1,
+router.post('/', requireAuth, async (req, res) => {
+  const post = await Post.create(req.user.id,
   req.body.title, req.body.content)
   res.json(post)
 
