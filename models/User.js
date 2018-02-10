@@ -52,5 +52,3 @@ const User = {
 //}
 //f()
 module.exports = User
-
-User.getByToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTUxODI0NTMzN30.sJG8oy9e2ZJjfgO_Lpc7M7YeqbZYBMQemcGme0gzf9Y').then(console.log)

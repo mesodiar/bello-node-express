@@ -7,6 +7,9 @@ const User = require('./models/User')
 const postsRoute = require('./routes/posts')
 const usersRoute = require('./routes/users')
 
+const schema = require('./schema')
+const graphqlHTTP = require('express-graphql')
+
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
@@ -32,3 +35,9 @@ app.use('/users', usersRoute)
 app.listen(3000, () => {
   console.log('started')
 })
+
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  graphiql: true
+}))
