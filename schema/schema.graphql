@@ -1,0 +1,44 @@
+type Post{
+    id: ID!
+    title: String
+    content: String
+    user: User
+}
+
+type User{
+    id: ID!
+    username: String
+    posts: [Post]
+}
+
+
+type Query {
+    hello: String
+    #this is post
+    posts: [Post] @deprecated(reason: "yo")
+    post(id: ID!): Post
+}
+
+input CreatePostInput{
+    userId: ID!
+    title: String!
+    content: String!
+}
+
+
+type Mutation{
+    createPost(data: CreatePostInput): Post
+}
+
+# type Mutation{
+#     createPost(
+#         userId: ID!, 
+#         title: String!, 
+#         content: String
+#     ): Post
+# }
+
+schema {
+    query: Query
+    mutation: Mutation
+}

@@ -6,6 +6,7 @@ const {
     GraphQLList
  } = require('graphql')
 
+ const { makeExecutableSchema } = require('graphql-tools')
  const Post = require('../models/Post')
  const User = require('../models/User')
 
@@ -50,8 +51,18 @@ const QueryType =  new GraphQLObjectType({
     }
 })
 
-const schema = new GraphQLSchema({
-    query: QueryType
+//const schema = new GraphQLSchema({
+//    query: QueryType
+//})
+const resolvers = require('./resolvers')
+const fs = require('fs')
+const path = require('path')
+
+const typeDefsPath = path.join(__dirname, 'schema.graphql')
+const typeDefs = fs.readFileSync(typeDefsPath).toString()
+const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers
 })
 
 module.exports = schema

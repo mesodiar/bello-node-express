@@ -10,6 +10,9 @@ const usersRoute = require('./routes/users')
 const schema = require('./schema')
 const graphqlHTTP = require('express-graphql')
 
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+
+
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
@@ -32,12 +35,18 @@ app.use('/posts', postsRoute)
 app.use('/users', usersRoute)
 
 
+app.use('/graphql', graphqlExpress({ schema }))
+app.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql'
+}))
+
 app.listen(3000, () => {
   console.log('started')
 })
 
 
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  graphiql: true
-}))
+
+//app.use('/graphql', graphqlHTTP({
+//  schema: schema,
+//  graphiql: true
+//}))
